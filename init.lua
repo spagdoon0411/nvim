@@ -84,6 +84,33 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
+-- NEW VIM SETTINGS
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.smartindent = true
+vim.opt.statuscolumn = '%s %l %r  '
+
+-- Restart LSP
+vim.api.nvim_set_keymap('n', '<leader>rsl', ':LspRestart<CR>', { noremap = true, silent = true })
+
+-- Avoids losing visual selection when unindenting
+vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true, silent = true })
+
+-- Created to allow hopping into error messages ("floats") with <leader>opf.
+-- Note that doing it once will open it; doing it again will move the cursor to it.
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function(_, bufnr)
+    print 'Setting up keymaps for diagnostics'
+    vim.keymap.set('n', '<space>opf', vim.diagnostic.open_float, { noremap = true, silent = true, buffer = bufnr, desc = '[O]pen [F]loat' })
+  end,
+})
+
+-- Set to false to disable auto format
+vim.g.lazyvim_eslint_auto_format = true
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -467,6 +494,41 @@ require('lazy').setup({
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
     },
+    setup = {
+      eslint = function()
+        local LazyVim = require 'lazyvim'
+
+        local function get_client(buf)
+          return LazyVim.lsp.get_clients({ name = 'eslint', bufnr = buf })[1]
+        end
+
+        local formatter = LazyVim.lsp.formatter {
+          name = 'eslint: lsp',
+          primary = false,
+          priority = 200,
+          filter = 'eslint',
+        }
+
+        if not pcall(require, 'vim.lsp._dynamic') then
+          formatter.name = 'eslint: EslintFixAll'
+          formatter.sources = function(buf)
+            local client = get_client(buf)
+            return client and { 'eslint' } or {}
+          end
+          formatter.format = function(buf)
+            local client = get_client(buf)
+            if client then
+              local diag = vim.diagnostic.get(buf, { namespace = vim.lsp.diagnostic.get_namespace(client.id) })
+              if #diag > 0 then
+                vim.cmd 'EslintFixAll'
+              end
+            end
+          end
+        end
+
+        LazyVim.format.register(formatter)
+      end,
+    },
     config = function()
       -- Brief aside: **What is LSP?**
       --
@@ -605,10 +667,10 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
+        clangd = {},
         -- gopls = {},
         -- pyright = {},
-        -- rust_analyzer = {},
+        rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -617,6 +679,15 @@ require('lazy').setup({
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
+        --
+        eslint = {
+          settings = {
+            -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
+            workingDirectories = { mode = 'auto' },
+            format = true,
+          },
+        },
+        cmake = {},
 
         lua_ls = {
           -- cmd = {...},
@@ -659,6 +730,7 @@ require('lazy').setup({
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
+            require('lspconfig').cmake.setup {}
           end,
         },
       }
@@ -685,7 +757,7 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = { c = false, cpp = false }
         local lsp_format_opt
         if disable_filetypes[vim.bo[bufnr].filetype] then
           lsp_format_opt = 'never'
@@ -699,8 +771,20 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        c = { 'clang-format' },
+        rust = { 'rustfmt' },
+        yaml = { 'prettier' },
+        svelte = { 'prettier' },
+        html = { 'prettier' },
+        css = { 'prettier' },
+        json = { 'prettierd', 'prettier' },
+        markdown = { 'prettier' },
+        javascript = { 'prettierd', 'eslint-lsp' },
+        typescript = { 'prettierd', 'eslint-lsp' },
+        cmake = { 'cmakelang' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        -- python = { 'isort', 'black' },
+        python = { 'black' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
@@ -888,7 +972,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'rust' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -929,7 +1013,7 @@ require('lazy').setup({
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -951,6 +1035,9 @@ require('lazy').setup({
     },
   },
 })
+
+-- Set to false to disable auto format
+vim.g.lazyvim_eslint_auto_format = true
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
