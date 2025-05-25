@@ -77,14 +77,6 @@ return {
     opts = {},
   },
   {
-    'ThePrimeagen/harpoon',
-    branch = 'harpoon2',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-  },
-  {
-    'mbbil/undotree',
-  },
-  {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
