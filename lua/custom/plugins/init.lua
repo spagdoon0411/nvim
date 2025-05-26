@@ -4,9 +4,6 @@
 -- See the kickstart.nvim README for more information
 return {
   {
-    'github/copilot.vim',
-  },
-  {
     'tpope/vim-fugitive',
     config = function()
       vim.api.nvim_create_user_command('Gv', 'vertical Git', {})
