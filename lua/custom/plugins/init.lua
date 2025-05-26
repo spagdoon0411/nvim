@@ -71,9 +71,4 @@ return {
     -- See Commands section for default commands if you want to lazy load on them
   },
   { 'ellisonleao/glow.nvim', config = true, cmd = 'Glow' },
-  {
-    'm4xshen/hardtime.nvim',
-    dependencies = { 'MunifTanjim/nui.nvim' },
-    opts = {},
-  },
 }
