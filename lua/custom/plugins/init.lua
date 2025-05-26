@@ -4,13 +4,6 @@
 -- See the kickstart.nvim README for more information
 return {
   {
-    'tpope/vim-fugitive',
-    config = function()
-      vim.api.nvim_create_user_command('Gv', 'vertical Git', {})
-      vim.keymap.set('n', '<leader>gv', ':Gv<CR>', { noremap = true, silent = true })
-    end,
-  },
-  {
     'nvim-tree/nvim-tree.lua',
     dependencies = { 'nvim-tree/nvim-web-devicons' }, -- optional for file icons
     config = function()
