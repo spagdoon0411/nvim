@@ -1,10 +1,5 @@
--- NEW VIM SETTINGS
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
-vim.opt.smartindent = true
-vim.opt.statuscolumn = '%s %l %r  '
+require 'custom.keybindings'
+require 'custom.buffer'
 
 -- Restart LSP
 vim.api.nvim_set_keymap('n', '<leader>rsl', ':LspRestart<CR>', { noremap = true, silent = true })
@@ -28,8 +23,6 @@ vim.g.lazyvim_eslint_auto_format = true
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
