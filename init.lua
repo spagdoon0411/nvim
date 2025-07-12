@@ -955,5 +955,11 @@ require('lazy').setup({
 -- Set to false to disable auto format
 vim.g.lazyvim_eslint_auto_format = true
 
+-- Bind Telescope buffer deletion function
+vim.api.nvim_set_keymap('n', '<leader>db', ":lua require('config/telescope').my_buffer()<cr>", { noremap = true })
+
+-- Opens buffer list in Telescope
+vim.api.nvim_set_keymap('n', '<leader>sb', ":lua require('telescope.builtin').buffers()<cr>", { noremap = true, silent = true })
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
