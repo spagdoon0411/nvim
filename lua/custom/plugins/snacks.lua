@@ -37,8 +37,12 @@ return {
     words = { enabled = true },
     styles = {
       notification = {
-        -- wo = { wrap = true } -- Wrap notifications
+        wo = { wrap = true }, -- Wrap notifications
       },
+    },
+    terminal = {
+      enabled = true,
+      open_cmd = 'tabnew', -- Command to open the terminal
     },
   },
   vim.keymap.set('n', '<leader>ft', function()

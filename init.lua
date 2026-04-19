@@ -638,8 +638,8 @@ require('lazy').setup({
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            vim.lsp.config[server_name].setup(server)
-            vim.lsp.config.cmake.setup {}
+            require('lspconfig')[server_name].setup(server)
+            require('lspconfig').cmake.setup {}
           end,
         },
       }
@@ -967,7 +967,7 @@ vim.api.nvim_set_keymap('n', '<leader>sb', ":lua require('telescope.builtin').bu
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 --
-vim.lsp.config.ruff.setup {
+require('lspconfig').ruff.setup {
   init_options = {
     settings = {
       lint = {
@@ -977,9 +977,9 @@ vim.lsp.config.ruff.setup {
   },
 }
 
-vim.lsp.config.pyrefly.setup {}
+require('lspconfig').pyrefly.setup {}
 
-vim.lsp.config.pyright.setup {
+require('lspconfig').pyright.setup {
   settings = {
     python = {
       analysis = {
