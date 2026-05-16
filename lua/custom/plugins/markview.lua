@@ -6,6 +6,11 @@ return {
       filetypes = { 'markdown', 'codecompanion' },
       ignore_buftypes = {},
     },
+    latex = {
+      enable = true,
+      inlines = { enable = true },
+      blocks = { enable = true },
+    },
   },
   -- Completion for `blink.cmp`
   -- dependencies = { "saghen/blink.cmp" },
