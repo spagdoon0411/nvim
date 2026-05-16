@@ -1,6 +1,19 @@
 return {
   'CopilotC-Nvim/CopilotChat.nvim',
-  branch = 'canary',
+  branch = 'main',
+  cmd = {
+    'CopilotChat',
+    'CopilotChatOpen',
+    'CopilotChatClose',
+    'CopilotChatToggle',
+    'CopilotChatStop',
+    'CopilotChatReset',
+    'CopilotChatSave',
+    'CopilotChatLoad',
+    'CopilotChatDebugInfo',
+    'CopilotChatModels',
+    'CopilotChatAgents',
+  },
   dependencies = {
     { 'github/copilot.vim' }, -- or zbirenbaum/copilot.lua
     { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
@@ -12,7 +25,7 @@ return {
     }
 
     -- Keybinding for toggling CopilotChat
-    vim.keymap.set('n', '<leader>ch', ':CopilotChatToggle<CR>', { noremap = true, silent = true })
+    -- vim.keymap.set('n', '<leader>ch', ':CopilotChatToggle<CR>', { noremap = true, silent = true })
   end,
   opts = {},
   -- See Commands section for default commands if you want to lazy load on them

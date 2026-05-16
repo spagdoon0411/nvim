@@ -2,7 +2,7 @@ local action_state = require 'telescope.actions.state'
 local actions = require 'telescope.actions'
 
 return {
-  my_buffer = function(opts)
+  delete_buffer_picker = function(opts)
     opts = opts or {}
     opts.attach_mappings = function(prompt_bufnr, map)
       local delete_buf = function()
@@ -14,10 +14,6 @@ return {
       return true
     end
     opts.previewer = false
-    -- define more opts here
-    -- opts.show_all_buffers = true
-    -- opts.sort_lastused = true
-    -- opts.shorten_path = false
     require('telescope.builtin').buffers(require('telescope.themes').get_dropdown(opts))
   end,
 }

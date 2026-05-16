@@ -13,17 +13,14 @@ return {
   },
   config = function(_, opts)
     local grapple = require 'grapple'
+    grapple.setup(opts)
 
-    -- Lua
     vim.keymap.set('n', '<leader>m', function()
       grapple.toggle()
-      -- vim.notify('Toggled grapple file', vim.log.levels.INFO)
-    end)
-    vim.keymap.set('n', '<leader>M', grapple.toggle_tags)
+    end, { desc = 'Toggle Grapple tag' })
 
-    -- User command
-    vim.keymap.set('n', '<leader>1', '<cmd>Grapple select index=1<cr>')
-
-    vim.keymap.set('n', '<leader>sM', '<cmd>Telescope grapple tags<cr>', { desc = 'Telescope grapple tags' })
+    vim.keymap.set('n', '<leader>M', grapple.toggle_tags, { desc = 'Toggle Grapple tags' })
+    vim.keymap.set('n', '<leader>1', '<cmd>Grapple select index=1<cr>', { desc = 'Select Grapple tag 1' })
+    vim.keymap.set('n', '<leader>sM', '<cmd>Telescope grapple tags<cr>', { desc = 'Telescope Grapple tags' })
   end,
 }

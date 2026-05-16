@@ -1,0 +1,70 @@
+                                   clangd: successfully installed
+                                   cmake-language-server: successfully installed
+                                   eslint-lsp: successfully installed
+                                   stylua: successfully installed
+                                   lua-language-server: successfully installed
+                                   rust-analyzer: successfully installed
+                      please log in with :Codeium Auth
+                                   stylua: installing
+                                   lua-language-server: installing
+                                   rust-analyzer: installing
+                                   clangd: installing
+                                   eslint-lsp: installing
+                                   cmake-language-server: installing
+                         Failed to source `/home/spandan/.local/share/nvim/lazy/playground/plugin/nvim-treesitter-playground.lua`
+
+vim/_editor.lua:0: /home/spandan/.config/nvim/init.lua..nvim_exec2() called at /home/spandan/.config/nvim/init.lua:0[1]../home/spandan/.local/share/nvim/lazy/playground/plugin/nvim-treesitter-playground.lua: Vim(source):E5113: Lua chunk: .../nvim/lazy/playground/lua/nvim-treesitter-playground.lua:5: attempt to call field 'define_modules' (a nil value)
+stack traceback:
+	.../nvim/lazy/playground/lua/nvim-treesitter-playground.lua:5: in function 'init'
+	...im/lazy/playground/plugin/nvim-treesitter-playground.lua:2: in main chunk
+	[C]: in function 'nvim_exec2'
+	vim/_editor.lua: in function 'cmd'
+	...local/share/nvim/lazy/lazy.nvim/lua/lazy/core/loader.lua:510: in function <...local/share/nvim/lazy/lazy.nvim/lua/lazy/core/loader.lua:509>
+	[C]: in function 'xpcall'
+	.../.local/share/nvim/lazy/lazy.nvim/lua/lazy/core/util.lua:135: in function 'try'
+	...local/share/nvim/lazy/lazy.nvim/lua/lazy/core/loader.lua:509: in function 'source'
+	...local/share/nvim/lazy/lazy.nvim/lua/lazy/core/loader.lua:457: in function 'source_runtime'
+	...local/share/nvim/lazy/lazy.nvim/lua/lazy/core/loader.lua:425: in function 'packadd'
+	...local/share/nvim/lazy/lazy.nvim/lua/lazy/core/loader.lua:359: in function '_load'
+	...local/share/nvim/lazy/lazy.nvim/lua/lazy/core/loader.lua:197: in function 'load'
+	...local/share/nvim/lazy/lazy.nvim/lua/lazy/core/loader.lua:127: in function 'startup'
+	...andan/.local/share/nvim/lazy/lazy.nvim/lua/lazy/init.lua:112: in function 'setup'
+	/home/spandan/.config/nvim/init.lua:164: in main chunk
+
+# stacktrace:
+  - vim/_editor.lua:0 _in_ **cmd**
+  - ~/.config/nvim/init.lua:164
+                         Failed to run `config` for nvim-treesitter
+
+...local/share/nvim/lazy/lazy.nvim/lua/lazy/core/loader.lua:387: module 'nvim-treesitter.configs' not found:
+	no field package.preload['nvim-treesitter.configs']
+	cache_loader: module 'nvim-treesitter.configs' not found
+	cache_loader_lib: module 'nvim-treesitter.configs' not found
+	no file './nvim-treesitter/configs.lua'
+	no file '/tmp/neovim/.deps/usr/share/luajit-2.1/nvim-treesitter/configs.lua'
+	no file '/usr/local/share/lua/5.1/nvim-treesitter/configs.lua'
+	no file '/usr/local/share/lua/5.1/nvim-treesitter/configs/init.lua'
+	no file '/tmp/neovim/.deps/usr/share/lua/5.1/nvim-treesitter/configs.lua'
+	no file '/tmp/neovim/.deps/usr/share/lua/5.1/nvim-treesitter/configs/init.lua'
+	no file './nvim-treesitter/configs.so'
+	no file '/usr/local/lib/lua/5.1/nvim-treesitter/configs.so'
+	no file '/tmp/neovim/.deps/usr/lib/lua/5.1/nvim-treesitter/configs.so'
+	no file '/usr/local/lib/lua/5.1/loadall.so'
+	no file './nvim-treesitter.so'
+	no file '/usr/local/lib/lua/5.1/nvim-treesitter.so'
+	no file '/tmp/neovim/.deps/usr/lib/lua/5.1/nvim-treesitter.so'
+	no file '/usr/local/lib/lua/5.1/loadall.so'
+
+# stacktrace:
+  - /playground/lua/nvim-treesitter-playground.lua:1
+  - /playground/plugin/nvim-treesitter-playground.lua:2
+  - vim/_editor.lua:0 _in_ **cmd**
+  - ~/.config/nvim/init.lua:164
+              [lspconfig] config "pyrefly" not found. Ensure it is listed in `configs.md` or added as a custom server.
+              stack traceback:
+	.../.local/share/nvim/lazy/nvim-lspconfig/lua/lspconfig.lua:81: in function '__index'
+	/home/spandan/.config/nvim/init.lua:970: in main chunk
+              The `require('lspconfig')` "framework" is deprecated, use vim.lsp.config (see :help lspconfig-nvim-0.11) instead.
+Feature will be removed in nvim-lspconfig v3.0.0
+              'canary' branch is deprecated, use 'main' branch instead.
+Feature will be removed in CopilotChat.nvim 3.0.X

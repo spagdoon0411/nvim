@@ -45,12 +45,20 @@ return {
       open_cmd = 'tabnew', -- Command to open the terminal
     },
   },
-  vim.keymap.set('n', '<leader>ft', function()
-    require('snacks.explorer').open {}
-  end, { noremap = true, silent = true, desc = 'Open Snacks Explorer' }),
-
-  -- Show notifications
-  vim.keymap.set('n', '<leader>fn', function()
-    require('snacks.notifier').show_history()
-  end, { noremap = true, silent = true, desc = 'Show Snacks Notifications' }),
+  keys = {
+    {
+      '<leader>ft',
+      function()
+        require('snacks.explorer').open {}
+      end,
+      desc = 'Open Snacks Explorer',
+    },
+    {
+      '<leader>fn',
+      function()
+        require('snacks.notifier').show_history()
+      end,
+      desc = 'Show Snacks Notifications',
+    },
+  },
 }

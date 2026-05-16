@@ -1,5 +1,7 @@
 return {
   'Exafunction/windsurf.nvim',
+  event = 'InsertEnter',
+  cmd = 'Codeium',
   dependencies = {
     'nvim-lua/plenary.nvim',
     'hrsh7th/nvim-cmp',
