@@ -2,10 +2,14 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     branch = 'main',
+    lazy = false,
     build = ':TSUpdate',
-    main = 'nvim-treesitter',
     opts = {
-      ensure_installed = {
+      install_dir = vim.fn.stdpath 'data' .. '/site',
+    },
+    config = function(_, opts)
+      require('nvim-treesitter').setup(opts)
+      require('nvim-treesitter').install {
         'bash',
         'c',
         'diff',
@@ -18,20 +22,14 @@ return {
         'vim',
         'vimdoc',
         'rust',
-      },
-      auto_install = true,
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          node_incremental = 'v',
-          node_decremental = 'V',
-        },
-      },
-    },
+      }
+
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { 'bash', 'c', 'diff', 'html', 'lua', 'markdown', 'query', 'vim', 'rust' },
+        callback = function()
+          vim.treesitter.start()
+        end,
+      })
+    end,
   },
 }
