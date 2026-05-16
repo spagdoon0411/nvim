@@ -10,8 +10,11 @@ return {
   config = function()
     -- NOTE: you do not need to call setup if you don't want to.
     require('vague').setup {
-      -- optional configuration here
+      transparent = true,
     }
     vim.cmd 'colorscheme vague'
+    vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE', ctermbg = 'NONE' })
+    vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'NONE', ctermbg = 'NONE' })
+    vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'NONE', ctermbg = 'NONE' })
   end,
 }
